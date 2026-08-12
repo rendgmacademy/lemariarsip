@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://lemariarshipkantor.web.id/sitemap.xml

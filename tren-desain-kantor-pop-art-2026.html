@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - ArsipKoe</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts: Archivo Black & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Tema Warna Ungu & Hijau Aksen */
+            --pop-purple: #8E63F8; 
+            --pop-green: #00E676; 
+            --ink: #0f0d0a;
+            --paper: #f6f1e6;
+            --white: #ffffff;
+            
+            --border-ink: 3px solid var(--ink);
+            --shadow-hard: 6px 6px 0 var(--ink);
+            --shadow-hover: 4px 4px 0 var(--ink);
+            --shadow-active: 0px 0px 0 var(--ink);
+        }
+
+        /* Anti goyang kanan kiri di mobile */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--paper);
+            color: var(--ink);
+            padding-top: 76px;
+        }
+
+        h1, h2, h3, h4, h5, h6, .display-font {
+            font-family: 'Archivo Black', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        /* Halftone Patterns */
+        .halftone-green {
+            background-image: radial-gradient(circle, var(--pop-green) 1.5px, transparent 2px);
+            background-size: 16px 16px;
+        }
+        
+        /* Pop Art Components */
+        .bg-pop-purple { background-color: var(--pop-purple) !important; }
+        .bg-pop-green { background-color: var(--pop-green) !important; }
+
+        .pop-card {
+            background: var(--white);
+            border: var(--border-ink);
+            border-radius: 12px;
+            box-shadow: var(--shadow-hard);
+            position: relative;
+        }
+
+        .pop-btn {
+            font-family: 'Archivo Black', sans-serif;
+            text-transform: uppercase;
+            border: var(--border-ink);
+            box-shadow: var(--shadow-hard);
+            transition: all 0.1s ease;
+            text-decoration: none;
+            display: inline-block;
+            padding: 10px 24px;
+            color: var(--ink);
+            background: var(--white);
+            cursor: pointer;
+        }
+        .pop-btn:hover {
+            transform: translate(2px, 2px);
+            box-shadow: var(--shadow-hover);
+            color: var(--ink);
+        }
+        .pop-btn:active {
+            transform: translate(6px, 6px);
+            box-shadow: var(--shadow-active);
+        }
+        
+        .pop-btn-primary { background: var(--pop-green); color: var(--ink); }
+        .pop-btn-primary:hover { color: var(--ink); }
+        .pop-btn-ink { background: var(--ink); color: var(--white); }
+        .pop-btn-ink:hover { color: var(--white); }
+
+        .eyebrow {
+            display: inline-block;
+            font-weight: 800;
+            border: var(--border-ink);
+            background: var(--white);
+            padding: 4px 12px;
+            transform: rotate(-2deg);
+            font-size: 0.85rem;
+            box-shadow: 3px 3px 0 var(--ink);
+            color: var(--ink);
+        }
+
+        /* Navbar */
+        .navbar-pop {
+            background-color: var(--white);
+            border-bottom: var(--border-ink);
+        }
+        .navbar-nav .nav-link {
+            font-weight: 600;
+            color: var(--ink) !important;
+            margin: 0 5px;
+            transition: color 0.2s ease;
+        }
+        .navbar-nav .nav-link:hover {
+            color: var(--pop-green) !important;
+        }
+        .dropdown-menu.pop-dropdown {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            background: var(--white);
+            padding: 10px 0;
+            margin-top: 10px;
+        }
+        .dropdown-menu.pop-dropdown .dropdown-item {
+            font-weight: 500;
+            padding: 8px 20px;
+            transition: background-color 0.2s;
+        }
+        .dropdown-menu.pop-dropdown .dropdown-item:hover {
+            background-color: var(--paper);
+        }
+
+        /* Sections */
+        .bg-paper { background-color: var(--paper); }
+        .bg-purple { background-color: var(--pop-purple); }
+        .bg-ink { background-color: var(--ink); color: var(--white); }
+        
+        .section-border-top { border-top: var(--border-ink); }
+        .section-border-bottom { border-bottom: var(--border-ink); }
+
+        /* Hero */
+        .hero-title {
+            font-size: clamp(32px, 5vw, 56px);
+            line-height: 1.1;
+            position: relative;
+            z-index: 2;
+            color: var(--white);
+            text-shadow: 4px 4px 0 var(--ink);
+        }
+
+        /* Floating Buttons Stacked on Right */
+        .floating-top {
+            position: fixed;
+            bottom: 95px;
+            right: 25px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--white);
+            border: var(--border-ink);
+            border-radius: 12px;
+            box-shadow: var(--shadow-hard);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9998;
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 20px;
+            color: var(--ink);
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s, color 0.2s, opacity 0.3s;
+            animation: bounce 2s infinite;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .floating-top.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .floating-top:hover {
+            animation-play-state: paused;
+            transform: translate(2px, 2px);
+            box-shadow: var(--shadow-hover);
+            background-color: var(--pop-purple);
+            color: var(--white);
+        }
+
+        .floating-wa {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--pop-green);
+            border: var(--border-ink);
+            border-radius: 50%;
+            box-shadow: var(--shadow-hard);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .floating-wa:hover {
+            transform: translate(2px, 2px);
+            box-shadow: var(--shadow-hover);
+        }
+        .floating-wa svg {
+            width: 32px;
+            height: 32px;
+            fill: var(--ink);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+    </style>
+
+    <meta name="description" content="Solusi lemari besi dan perlengkapan arsip kantor terpercaya. Dapatkan produk berkualitas tinggi hanya di ArsipKoe.">
+    <meta name="keywords" content="lemari arsip, lemari besi, brankas dokumen, laci susun, kantor, arsipkoe">
+    <link rel="canonical" href="https://lemariarshipkantor.web.id/tren-desain-kantor-pop-art-2026.html">
+    <link rel="icon" href="assets/img/lemari_besi_2_pintu.webp" type="image/webp">
+    
+    <!-- Preconnect for Pagespeed -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- OpenGraph / Facebook / X -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://lemariarshipkantor.web.id/tren-desain-kantor-pop-art-2026.html">
+    <meta property="og:title" content="Blog - ArsipKoe">
+    <meta property="og:description" content="Solusi lemari besi dan perlengkapan arsip kantor terpercaya. Dapatkan produk berkualitas tinggi hanya di ArsipKoe.">
+    <meta property="og:image" content="https://lemariarshipkantor.web.id/img/lemari_besi_2_pintu.webp">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Blog - ArsipKoe">
+    <meta name="twitter:description" content="Solusi lemari besi dan perlengkapan arsip kantor terpercaya. Dapatkan produk berkualitas tinggi hanya di ArsipKoe.">
+    <meta name="twitter:image" content="https://lemariarshipkantor.web.id/img/lemari_besi_2_pintu.webp">
+
+    <!-- AEO & GEO Schema -->
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"Article","name":"Blog - ArsipKoe","url":"https://lemariarshipkantor.web.id/tren-desain-kantor-pop-art-2026.html","description":"Solusi lemari besi dan perlengkapan arsip kantor terpercaya. Dapatkan produk berkualitas tinggi hanya di ArsipKoe.","headline":"Blog - ArsipKoe","image":["https://lemariarshipkantor.web.id/img/lemari_besi_2_pintu.webp"],"author":{"@type":"Organization","name":"ArsipKoe"},"publisher":{"@type":"Organization","name":"ArsipKoe","logo":{"@type":"ImageObject","url":"https://lemariarshipkantor.web.id/img/lemari_besi_2_pintu.webp"}},"datePublished":"2026-08-12"}
+    </script>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light navbar-pop fixed-top py-3">
+        <div class="container">
+            <a class="navbar-brand display-font fs-3 position-relative text-ink d-flex align-items-center gap-2" href="index.html" style="text-shadow: 2px 2px 0 var(--pop-green);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15h9.286zM5.5 7h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1zM.8 1a.8.8 0 0 0-.8.8V3a.8.8 0 0 0 .8.8h14.4A.8.8 0 0 0 16 3V1.8a.8.8 0 0 0-.8-.8H.8z"/>
+                </svg>
+                ARSIPKOE
+                <span class="position-absolute" style="top:0; right:-15px; color:var(--pop-purple); font-size:1rem; text-shadow: none;">★</span>
+            </a>
+            <button class="navbar-toggler border-2 border-dark bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">Tentang Kami</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Produk</a>
+                        <ul class="dropdown-menu pop-dropdown">
+                            <li><a class="dropdown-item" href="lemari-besi-2-pintu.html">Lemari Besi 2 Pintu</a></li>
+                            <li><a class="dropdown-item" href="laci-susun-eksekutif.html">Laci Susun Eksekutif</a></li>
+                            <li><a class="dropdown-item" href="brankas-dokumen.html">Brankas Dokumen</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="packages.html">Paket</a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+                </ul>
+                <div class="d-flex mt-3 mt-lg-0">
+                    <a href="https://wa.me/6288989643555" target="_blank" class="pop-btn pop-btn-primary">Kontak</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    
+    <!-- BREADCRUMB -->
+    <section class="py-3 bg-paper border-bottom border-2 border-dark">
+        <div class="container">
+            <div class="fw-bold small text-uppercase" style="letter-spacing: 1px;">
+                <a href="index.html" class="text-ink text-decoration-none">Beranda</a> 
+                <span class="mx-2 text-pop-green">/</span> 
+                <a href="blog.html" class="text-ink text-decoration-none">Blog</a>
+                <span class="mx-2 text-pop-green">/</span> 
+                <span class="text-muted">Desain Kantor Pop Art</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ARTICLE HEADER -->
+    <section class="py-5 bg-white">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <h1 class="display-font mb-4 text-ink" style="font-size: clamp(32px, 5vw, 48px); line-height: 1.2;">
+                        TREN DESAIN KANTOR POP ART 2026: BERANI TAMPIL BEDA
+                    </h1>
+                    <div class="d-flex align-items-center mb-4 pb-4 border-bottom border-3 border-dark">
+                        <img loading="lazy" src="assets/img/about_misi.webp" alt="Penulis" class="rounded-circle border border-2 border-dark me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                        <div>
+                            <p class="mb-0 fw-bold">Oleh: Budi Santoso (Pakar Kearsipan)</p>
+                            <p class="mb-0 small text-muted">Diterbitkan pada: 05 Agustus 2026 &bull; Waktu baca: 5 Menit</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Main Image -->
+                    <div class="pop-card border-3 border-dark p-0 overflow-hidden mb-4" style="border-radius: 12px; height: 500px;">
+                        <img loading="lazy" src="assets/img/blog_tren_desain_kantor.webp" class="w-100 h-100 object-fit-cover" alt="Kantor Pop Art">
+                    </div>
+                    <p class="text-center small text-muted fw-bold mb-5">Ilustrasi: Ruang kerja dengan perpaduan warna neon dan perabotan industrial.</p>\n
+                    <!-- CONTENT WRAPPER (CENTERED) -->
+                    <div class="row justify-content-center">
+                        <div class="col-lg-10 article-content fs-5" style="line-height: 1.8; color: var(--ink);">
+                            
+                            <!-- TOC ACCORDION -->
+                            <div class="accordion mb-5 border-3 border-dark" id="tocAccordion" style="border-radius: 12px; box-shadow: var(--shadow-hard);">
+                                <div class="accordion-item border-0" style="border-radius: 12px; overflow:hidden;">
+                                    <h2 class="accordion-header" id="tocHeading">
+                                        <button class="accordion-button fw-bold text-ink bg-paper" type="button" data-bs-toggle="collapse" data-bs-target="#tocCollapse" aria-expanded="true">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list-ul me-2" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg>
+                                            Daftar Isi (Table of Contents)
+                                        </button>
+                                    </h2>
+                                    <div id="tocCollapse" class="accordion-collapse collapse show border-top border-2 border-dark" aria-labelledby="tocHeading">
+                                        <div class="accordion-body bg-white">
+                                            <nav id="toc" class="nav flex-column fw-semibold small gap-2">
+                                                <!-- TOC Generated by JS -->
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+                            <p class="lead fw-bold mb-4">Selama puluhan tahun, desain kantor didominasi oleh warna-warna aman seperti abu-abu, cokelat kayu, atau putih pucat. Lemari arsip selalu berbentuk kotak besi abu-abu yang disembunyikan di sudut ruangan. Namun, di tahun 2026, tren telah bergeser drastis. Generasi muda (Gen Z dan Milenial) menuntut lingkungan kerja yang lebih dinamis, inspiratif, dan mencerminkan identitas perusahaan yang kreatif.</p>
+
+                            <h2 class="display-font fs-3 mt-5 mb-3" id="sec-1">Selamat Tinggal Abu-abu dan Cokelat Membosankan</h2>
+                            <p class="mb-4">Pop Art yang populer di tahun 60-an kini kembali merajai interior kantor modern. Penggunaan warna-warna primer yang saling bertabrakan (seperti hijau neon dipadu ungu atau kuning cerah) memberikan suntikan energi bagi karyawan. Pola *halftone*, tipografi tebal (seperti *Archivo Black*), dan garis luar (*outline*) hitam tebal di dinding atau furnitur menciptakan ilusi komik dua dimensi yang sangat *instagrammable*. Pop Art yang populer di tahun 60-an kini kembali merajai interior kantor modern. Penggunaan warna-warna primer yang saling bertabrakan (seperti hijau neon dipadu ungu atau kuning cerah) memberikan suntikan energi bagi karyawan. Pola *halftone*, tipografi tebal (seperti *Archivo Black*), dan garis luar (*outline*) hitam tebal di dinding atau furnitur menciptakan ilusi komik dua dimensi yang sangat *instagrammable*.</p>
+                            
+                            <h3 class="display-font fs-4 mt-4 mb-2 text-pop-purple" id="sec-1-1">Kebangkitan Pop Art di Ruang Kerja</h3>
+                            <p class="mb-4">Dalam tren desain ini, furnitur fungsional seperti lemari arsip dan *filing cabinet* tidak lagi disembunyikan. Sebaliknya, mereka dijadikan *statement piece* di tengah ruangan. Lemari arsip dengan warna hijau cerah atau ungu neon dari ArsipKoe bukan sekadar tempat menyimpan kertas, melainkan karya seni yang memperkuat tema interior. Dalam tren desain ini, furnitur fungsional seperti lemari arsip dan *filing cabinet* tidak lagi disembunyikan. Sebaliknya, mereka dijadikan *statement piece* di tengah ruangan. Lemari arsip dengan warna hijau cerah atau ungu neon dari ArsipKoe bukan sekadar tempat menyimpan kertas, melainkan karya seni yang memperkuat tema interior.</p>
+
+                            <!-- BACA JUGA 1 -->
+                            <div class="pop-card p-3 my-5 border-2 border-dark bg-pop-green d-flex align-items-center">
+                                <span class="fs-4 me-3">👉</span>
+                                <div>
+                                    <span class="fw-bold d-block small text-ink text-uppercase">Baca Juga:</span>
+                                    <a href="pentingnya-lemari-arsip-baja.html" class="fw-bold text-ink text-decoration-none fs-5">Pentingnya Lemari Arsip Baja untuk Keamanan Dokumen</a>
+                                </div>
+                            </div>
+
+                            <h2 class="display-font fs-3 mt-5 mb-3" id="sec-2">Furnitur Fungsional Sebagai Elemen Dekorasi</h2>
+                            <p class="mb-4">Banyak perusahaan kreatif kini menempelkan logo raksasa bergaya Pop Art atau *quotes* motivasi dengan *font* tebal langsung di pintu lemari besi mereka. Permukaan baja *cold-rolled* yang rata dan dicat dengan *powder coating* sangat ramah terhadap stiker vinyl, menjadikannya kanvas yang sempurna untuk berkreasi. Banyak perusahaan kreatif kini menempelkan logo raksasa bergaya Pop Art atau *quotes* motivasi dengan *font* tebal langsung di pintu lemari besi mereka. Permukaan baja *cold-rolled* yang rata dan dicat dengan *powder coating* sangat ramah terhadap stiker vinyl, menjadikannya kanvas yang sempurna untuk berkreasi.</p>
+
+                            <h3 class="display-font fs-4 mt-4 mb-2 text-pop-purple" id="sec-2-1">Stiker Kustom dan Decal</h3>
+                            <p class="mb-5">Meskipun Pop Art identik dengan warna ramai, keseimbangan tetap diperlukan agar mata tidak cepat lelah. Kuncinya adalah menggunakan warna netral (hitam *ink* atau putih *paper*) sebagai latar belakang utama, dan mengaplikasikan warna terang pada titik-titik fokus tertentu saja. Misalnya, meja kerja tetap putih polos, namun laci susun (*mobile drawer*) di bawahnya menggunakan warna ungu cerah. Meskipun Pop Art identik dengan warna ramai, keseimbangan tetap diperlukan agar mata tidak cepat lelah. Kuncinya adalah menggunakan warna netral (hitam *ink* atau putih *paper*) sebagai latar belakang utama, dan mengaplikasikan warna terang pada titik-titik fokus tertentu saja. Misalnya, meja kerja tetap putih polos, namun laci susun (*mobile drawer*) di bawahnya menggunakan warna ungu cerah.</p>
+
+                            <!-- PROMO IMAGE -->
+                            <a href="https://wa.me/6288989643555" target="_blank" class="d-block my-5 text-decoration-none transition-hover">
+                                <div class="pop-card border-3 border-dark overflow-hidden p-0 position-relative" style="border-radius: 12px; height: 250px;">
+                                    <img loading="lazy" src="assets/img/artikel_promo.webp" class="w-100 h-100 object-fit-cover" alt="Promo Lemari Arsip">
+                                    <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center p-4 bg-dark bg-opacity-50 text-white">
+                                        <div>
+                                            <h3 class="display-font text-pop-green mb-2" style="text-shadow: 2px 2px 0 var(--ink);">DISKON 20% PEMBELIAN PERTAMA!</h3>
+                                            <p class="fw-bold fs-5 mb-0">Klik di sini untuk konsultasi gratis via WhatsApp</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <h2 class="display-font fs-3 mt-5 mb-3" id="sec-3">Keseimbangan Visual agar Tidak Berlebihan</h2>
+                            <p class="mb-4">Warna-warna Pop Art membutuhkan pencahayaan yang sangat baik agar tidak terlihat suram. Gunakan lampu LED dengan temperatur warna natural (4000K) untuk menonjolkan kontras warna tanpa menyilaukan layar monitor. Lampu aksen tambahan yang menyorot lemari arsip bisa memberikan efek dramatis. Warna-warna Pop Art membutuhkan pencahayaan yang sangat baik agar tidak terlihat suram. Gunakan lampu LED dengan temperatur warna natural (4000K) untuk menonjolkan kontras warna tanpa menyilaukan layar monitor. Lampu aksen tambahan yang menyorot lemari arsip bisa memberikan efek dramatis.</p>
+
+                            <blockquote class="pop-card p-4 my-5 border-start border-5 border-pop-purple bg-paper fst-italic fw-bold fs-5">
+                                "Sistem penyimpanan yang dioptimalkan bukan sekadar rak kosong, melainkan tulang punggung efisiensi operasional harian kantor Anda."
+                            </blockquote>
+
+                            <h3 class="display-font fs-4 mt-4 mb-2 text-pop-purple" id="sec-3-1">Pencahayaan yang Tepat</h3>
+                            <p class="mb-4">Ruangan yang didesain dengan konsep Pop Art terbukti menurunkan tingkat stres dan meningkatkan ide-ide kreatif. Warna-warna cerah merangsang aktivitas otak, menjaga staf tetap waspada dan bersemangat sepanjang hari. Jadi, mengubah desain kantor Anda bukan sekadar *makeover* visual, melainkan investasi pada produktivitas tim. Ruangan yang didesain dengan konsep Pop Art terbukti menurunkan tingkat stres dan meningkatkan ide-ide kreatif. Warna-warna cerah merangsang aktivitas otak, menjaga staf tetap waspada dan bersemangat sepanjang hari. Jadi, mengubah desain kantor Anda bukan sekadar *makeover* visual, melainkan investasi pada produktivitas tim.</p>
+
+                            <!-- SUPPORTING IMAGE -->
+                            <div class="pop-card border-3 border-dark p-0 overflow-hidden mb-4 my-5" style="border-radius: 12px;">
+                                <img loading="lazy" src="assets/img/artikel_support.webp" class="w-100 img-fluid object-fit-cover" alt="Detail Konstruksi Lemari Baja">
+                            </div>
+
+                            <h2 class="display-font fs-3 mt-5 mb-3" id="sec-4">Dampak Psikologis pada Karyawan</h2>
+                            <p class="mb-5">Inovasi terbaru pada produk kami selalu mengedepankan keamanan maksimal tanpa mengorbankan estetika Pop-Art yang dinamis. Pastikan investasi Anda tepat sasaran.</p>
+                            
+                            <hr class="border-2 border-dark my-5">
+
+                            <!-- FAQ ACCORDION -->
+                            <h3 class="display-font fs-4 mb-4">Pertanyaan yang Sering Diajukan (FAQ)</h3>
+                            <div class="accordion mb-5" id="faqAccordion">
+                                <div class="accordion-item border-2 border-dark mb-3" style="border-radius: 8px; overflow:hidden;">
+                                    <h2 class="accordion-header" id="headingOne">
+                                        <button class="accordion-button fw-bold text-ink bg-paper" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true">
+                                            Apakah lemari baja bisa berkarat jika ditempatkan di ruangan ber-AC?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body fw-semibold text-muted bg-white">
+                                            Lemari baja modern telah dilapisi dengan teknik pengecatan *Powder Coating* pada suhu tinggi. Lapisan ini 10 kali lebih kuat dari cat cair biasa dan sangat tahan terhadap karat, meskipun berada di ruangan ber-AC dengan fluktuasi kelembapan harian.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item border-2 border-dark mb-3" style="border-radius: 8px; overflow:hidden;">
+                                    <h2 class="accordion-header" id="headingTwo">
+                                        <button class="accordion-button fw-bold text-ink bg-paper collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false">
+                                            Bagaimana memindahkan lemari besi jika kami pindah kantor?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body fw-semibold text-muted bg-white">
+                                            Kami sangat menyarankan lemari dalam keadaan kosong saat dipindahkan. Lemari tipe *knock-down* dapat dibongkar pasang oleh teknisi kami, sedangkan tipe *built-up* memerlukan alat bantu angkut (troli) karena bobotnya yang mencapai 50-80 kg saat kosong.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item border-2 border-dark mb-3" style="border-radius: 8px; overflow:hidden;">
+                                    <h2 class="accordion-header" id="headingThree">
+                                        <button class="accordion-button fw-bold text-ink bg-paper collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false">
+                                            Apakah bisa pesan ukuran atau warna khusus (custom)?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body fw-semibold text-muted bg-white">
+                                            Tentu! ArsipKoe melayani pesanan *custom* warna agar sesuai dengan *brand identity* (warna korporat) perusahaan Anda, serta melayani modifikasi susunan laci untuk pembelian dalam jumlah partai.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- AUTHOR BIO -->
+                            <div class="pop-card p-4 border-3 border-dark d-flex flex-column flex-md-row align-items-center gap-4 bg-paper my-5" style="border-radius: 16px;">
+                                <img loading="lazy" src="assets/img/about_misi.webp" alt="Budi Santoso" class="rounded-circle border border-3 border-dark flex-shrink-0" style="width: 100px; height: 100px; object-fit: cover;">
+                                <div>
+                                    <h4 class="display-font fs-5 mb-2">BUDI SANTOSO</h4>
+                                    <p class="fw-semibold small text-muted mb-0">Seorang praktisi dan konsultan manajemen kearsipan dengan pengalaman lebih dari 15 tahun membantu BUMN dan perusahaan multinasional menata sistem dokumen mereka secara efisien dan aman.</p>
+                                </div>
+                            </div>
+
+                            <!-- SHARE BUTTONS -->
+                            <div class="d-flex align-items-center gap-3 border-top border-3 border-dark pt-4">
+                                <span class="fw-bold text-uppercase">Bagikan Artikel:</span>
+                                <a href="https://wa.me/?text=Pentingnya%20Lemari%20Arsip%20Baja%20untuk%20Kantor%20Anda!%20Cek%20selengkapnya." target="_blank" class="pop-btn py-2 px-3 bg-pop-green text-ink border-2 border-dark" title="Share ke WhatsApp">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16"><path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c-.003 1.398.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/></svg>
+                                    WhatsApp
+                                </a>
+                                <a href="#" class="pop-btn py-2 px-3 bg-white text-ink border-2 border-dark" title="Share ke Facebook">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/></svg>
+                                </a>
+                                <a href="#" class="pop-btn py-2 px-3 bg-white text-ink border-2 border-dark" title="Copy Link">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-link-45deg" viewBox="0 0 16 16"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1 1 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4 4 0 0 1-.128-1.287z"/><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243z"/></svg>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+\n    <!-- ARTIKEL TERKAIT -->
+    <section class="py-5 bg-paper border-top border-3 border-dark">
+        <div class="container py-4">
+            <h2 class="display-font text-center mb-5">ARTIKEL TERKAIT</h2>
+            <div class="row g-4">
+                <!-- Related 1 -->
+                <div class="col-md-4">
+                    <div class="pop-card h-100 p-0 border-3 border-dark d-flex flex-column overflow-hidden bg-white">
+                        <div style="height: 180px; border-bottom: 3px solid var(--ink);">
+                            <img loading="lazy" src="assets/img/related_tren_desain.webp" class="w-100 h-100 object-fit-cover" alt="Related 1">
+                        </div>
+                        <div class="p-4 d-flex flex-column flex-grow-1">
+                            <h4 class="display-font mb-3 fs-5">TREN DESAIN KANTOR POP ART 2026</h4>
+                            <p class="fw-semibold text-muted small mb-4 flex-grow-1">Warna-warni berani dan estetika industrial yang solid sedang menjadi tren. Berikut inspirasi desain yang bisa ditiru...</p>
+                            <a href="#" class="pop-btn py-2 px-3 text-center text-decoration-none bg-pop-purple text-white border-2 border-dark">BACA</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Related 2 -->
+                <div class="col-md-4">
+                    <div class="pop-card h-100 p-0 border-3 border-dark d-flex flex-column overflow-hidden bg-white">
+                        <div style="height: 180px; border-bottom: 3px solid var(--ink);">
+                            <img loading="lazy" src="assets/img/related_brankas_tahan_api.webp" class="w-100 h-100 object-fit-cover" alt="Related 2">
+                        </div>
+                        <div class="p-4 d-flex flex-column flex-grow-1">
+                            <h4 class="display-font mb-3 fs-5">PENTINGNYA BRANKAS TAHAN API</h4>
+                            <p class="fw-semibold text-muted small mb-4 flex-grow-1">Dokumen legal seperti sertifikat tanah, BPKB, dan kontrak kerja harus diamankan dari ancaman kebakaran...</p>
+                            <a href="#" class="pop-btn py-2 px-3 text-center text-decoration-none bg-pop-purple text-white border-2 border-dark">BACA</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Related 3 -->
+                <div class="col-md-4">
+                    <div class="pop-card h-100 p-0 border-3 border-dark d-flex flex-column overflow-hidden bg-white">
+                        <div style="height: 180px; border-bottom: 3px solid var(--ink);">
+                            <img loading="lazy" src="assets/img/related_laci_susun_staf.webp" class="w-100 h-100 object-fit-cover" alt="Related 3">
+                        </div>
+                        <div class="p-4 d-flex flex-column flex-grow-1">
+                            <h4 class="display-font mb-3 fs-5">TIPS MEMILIH LACI SUSUN UNTUK STAF</h4>
+                            <p class="fw-semibold text-muted small mb-4 flex-grow-1">Laci mobile yang diletakkan di bawah meja harus memiliki penguncian sentral agar dokumen tiap individu aman...</p>
+                            <a href="#" class="pop-btn py-2 px-3 text-center text-decoration-none bg-pop-purple text-white border-2 border-dark">BACA</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CUSTOM JS FOR TOC -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const articleContent = document.querySelector('.article-content');
+            const tocContainer = document.getElementById('toc');
+            if (articleContent && tocContainer) {
+                const headings = articleContent.querySelectorAll('h2, h3');
+                headings.forEach(heading => {
+                    if (!heading.id) {
+                        heading.id = heading.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                    }
+                    const link = document.createElement('a');
+                    link.href = '#' + heading.id;
+                    link.textContent = heading.textContent;
+                    link.className = 'text-decoration-none text-ink d-block py-1 transition-hover';
+                    if (heading.tagName.toLowerCase() === 'h3') {
+                        link.classList.add('ps-3');
+                        link.style.borderLeft = '2px solid var(--pop-purple)';
+                    }
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const target = document.getElementById(heading.id);
+                        const headerOffset = 100;
+                        const elementPosition = target.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    });
+                    tocContainer.appendChild(link);
+                });
+            }
+        });
+    </script>
+\n    <!-- FOOTER -->
+    <footer class="bg-ink py-5 text-white">
+        <div class="container">
+            <div class="row g-4">
+                <!-- Kolom 1 -->
+                <div class="col-lg-3 col-md-6">
+                    <h3 class="display-font fs-3 mb-3 text-white">ARSIPKOE</h3>
+                    <p class="small text-white opacity-75">Pusat lemari arsip besi dan brankas premium yang mengutamakan kualitas, ketahanan, dan desain modern.</p>
+                    <div class="d-flex gap-3 mt-4">
+                        <a href="#" class="text-white fs-5 text-decoration-none"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.036 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/></svg></a>
+                        <a href="#" class="text-white fs-5 text-decoration-none"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/></svg></a>
+                        <a href="#" class="text-white fs-5 text-decoration-none"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16"><path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.05-.074 1.957l-.008.104-.022.26-.01.104c-.048.519-.119 1.023-.22 1.402a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c1.16-.312 5.569-.334 6.18-.335h.142c.309 0 1.587.006 2.927.052l.17.006.087.004.171.007.171.007c1.11.049 2.167.128 2.654.26a2.01 2.01 0 0 1 1.415 1.419c.111.417.185.986.235 1.558L15.91 9.82l.008.104A31.4 31.4 0 0 1 16 7.68v-.123c-.002-.215-.01-.958-.064-1.778l-.007-.103-.003-.052-.008-.104-.022-.26-.01-.104c-.048-.519-.119-1.023-.22-1.402a2.01 2.01 0 0 1-1.415-1.42c-1.16-.312-5.569-.334-6.18-.335h-.142zM6.5 5.5v5l4.5-2.5-4.5-2.5z"/></svg></a>
+                    </div>
+                </div>
+                <!-- Kolom 2: Menu -->
+                <div class="col-lg-3 col-6">
+                    <h6 class="display-font text-white mb-3">MENU</h6>
+                    <ul class="list-unstyled fw-semibold small">
+                        <li class="mb-2"><a href="index.html" class="text-white text-decoration-none opacity-75">Beranda</a></li>
+                        <li class="mb-2"><a href="about.html" class="text-white text-decoration-none opacity-75">Tentang</a></li>
+                        <li class="mb-2"><a href="index.html#produk" class="text-white text-decoration-none opacity-75">Produk</a></li>
+                        <li class="mb-2"><a href="packages.html" class="text-white text-decoration-none opacity-75">Paket</a></li>
+                        <li class="mb-2"><a href="blog.html" class="text-white text-decoration-none opacity-75">Blog</a></li>
+                    </ul>
+                </div>
+                <!-- Kolom 3: Produk Populer -->
+                <div class="col-lg-3 col-6">
+                    <h6 class="display-font text-white mb-3">PRODUK POPULER</h6>
+                    <ul class="list-unstyled fw-semibold small">
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none opacity-75">Lemari Besi 2 Pintu</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none opacity-75">Laci Susun Eksekutif</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none opacity-75">Brankas Tahan Api</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none opacity-75">Laci Mobile Roll</a></li>
+                    </ul>
+                </div>
+                <!-- Kolom 4: Kontak (tanpa QR Code) -->
+                <div class="col-lg-3 col-md-6">
+                    <h6 class="display-font text-white mb-3">KONTAK</h6>
+                    <ul class="list-unstyled fw-semibold small">
+                        <li class="mb-3 d-flex align-items-start">
+                            <span class="me-2">📍</span> <span class="opacity-75">Jakarta & Jabodetabek</span>
+                        </li>
+                        <li class="mb-3 d-flex align-items-start">
+                            <span class="me-2">💬</span> <span class="opacity-75">+62 889 8964 3555</span>
+                        </li>
+                        <li class="mb-3 d-flex align-items-start">
+                            <span class="me-2">✉️</span> <span class="opacity-75">sales@lemariarsipkantor.web.id</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="border-2 border-white opacity-25 my-4">
+            <div class="text-center fw-semibold small text-white opacity-75">
+                &copy; 2026 ArsipKoe. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- FITUR MENGAPUNG -->
+
+    <!-- Tombol Scroll to Top (Posisi di atas WA) -->
+    <button class="floating-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });" title="Kembali ke atas">
+        &uarr;
+    </button>
+
+    <!-- Tombol WhatsApp Kanan Bawah (Posisi di bawah Top) dengan Icon SVG Bootstrap Asli -->
+    <a href="https://wa.me/6288989643555" target="_blank" class="floating-wa" title="Hubungi Kami via WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="var(--ink)" class="bi bi-whatsapp" viewBox="0 0 16 16">
+            <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.05-.084-.182-.133-.38-.232"/>
+        </svg>
+    </a>
+
+    <!-- Bootstrap 5 JS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Menyembunyikan dan Menampilkan tombol Floating Top saat di-scroll
+        const floatingTopBtn = document.querySelector('.floating-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                floatingTopBtn.classList.add('show');
+            } else {
+                floatingTopBtn.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>
