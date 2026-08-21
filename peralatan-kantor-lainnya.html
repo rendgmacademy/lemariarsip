@@ -1,0 +1,578 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peralatan Kantor Lainnya - Lemari Kantor</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts: Archivo Black & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Tema Warna Ungu & Hijau Aksen */
+            --pop-purple: #8E63F8; 
+            --pop-green: #00E676; 
+            --ink: #0f0d0a;
+            --paper: #f6f1e6;
+            --white: #ffffff;
+            
+            --border-ink: 3px solid var(--ink);
+            --shadow-hard: 6px 6px 0 var(--ink);
+            --shadow-hover: 4px 4px 0 var(--ink);
+            --shadow-active: 0px 0px 0 var(--ink);
+        }
+
+        /* Anti goyang kanan kiri di mobile */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--paper); /* Changed to paper for inside pages */
+            color: var(--ink);
+            padding-top: 76px;
+        }
+
+        h1, h2, h3, h4, h5, h6, .display-font {
+            font-family: 'Archivo Black', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        /* Halftone Patterns */
+        .halftone-green {
+            background-image: radial-gradient(circle, var(--pop-green) 1.5px, transparent 2px);
+            background-size: 16px 16px;
+        }
+        
+        .halftone-purple {
+            background-image: radial-gradient(circle, var(--pop-purple) 1.5px, transparent 2px);
+            background-size: 16px 16px;
+        }
+
+        /* Pop Art Components */
+        .bg-pop-purple { background-color: var(--pop-purple) !important; }
+        .bg-pop-green { background-color: var(--pop-green) !important; }
+
+        .pop-card {
+            background: var(--white);
+            border: var(--border-ink);
+            border-radius: 12px;
+            box-shadow: var(--shadow-hard);
+            position: relative;
+        }
+
+        .pop-btn {
+            font-family: 'Archivo Black', sans-serif;
+            text-transform: uppercase;
+            border: var(--border-ink);
+            box-shadow: var(--shadow-hard);
+            transition: all 0.1s ease;
+            text-decoration: none;
+            display: inline-block;
+            padding: 10px 24px;
+            color: var(--ink);
+            background: var(--white);
+            cursor: pointer;
+        }
+        .pop-btn:hover {
+            transform: translate(2px, 2px);
+            box-shadow: var(--shadow-hover);
+            color: var(--ink);
+        }
+        .pop-btn:active {
+            transform: translate(6px, 6px);
+            box-shadow: var(--shadow-active);
+        }
+        
+        .pop-btn-primary { background: var(--pop-green); color: var(--ink); }
+        .pop-btn-primary:hover { color: var(--ink); }
+        .pop-btn-ink { background: var(--ink); color: var(--white); }
+        .pop-btn-ink:hover { color: var(--white); }
+
+        .eyebrow {
+            display: inline-block;
+            font-weight: 800;
+            border: var(--border-ink);
+            background: var(--white);
+            padding: 4px 12px;
+            transform: rotate(-2deg);
+            font-size: 0.85rem;
+            box-shadow: 3px 3px 0 var(--ink);
+            color: var(--ink);
+        }
+
+        /* Navbar */
+        .navbar-pop {
+            background-color: var(--white);
+            border-bottom: var(--border-ink);
+        }
+        .navbar-nav .nav-link {
+            font-weight: 600;
+            color: var(--ink) !important;
+            margin: 0 5px;
+            transition: color 0.2s ease;
+        }
+        .navbar-nav .nav-link:hover {
+            color: var(--pop-green) !important;
+        }
+        .dropdown-menu.pop-dropdown {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            background: var(--white);
+            padding: 10px 0;
+            margin-top: 10px;
+        }
+        .dropdown-menu.pop-dropdown .dropdown-item {
+            font-weight: 500;
+            padding: 8px 20px;
+            transition: background-color 0.2s;
+        }
+        .dropdown-menu.pop-dropdown .dropdown-item:hover {
+            background-color: var(--paper);
+        }
+
+        /* Sections */
+        .bg-paper { background-color: var(--paper); }
+        .bg-purple { background-color: var(--pop-purple); }
+        .bg-ink { background-color: var(--ink); color: var(--white); }
+        
+        .section-border-top { border-top: var(--border-ink); }
+        .section-border-bottom { border-bottom: var(--border-ink); }
+
+        /* Hero */
+        .hero-title {
+            font-size: clamp(32px, 5vw, 56px);
+            line-height: 1.1;
+            position: relative;
+            z-index: 2;
+            color: var(--white);
+            text-shadow: 4px 4px 0 var(--ink);
+        }
+        
+        /* Numbered Chips */
+        .corner-chip {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            background: var(--pop-green);
+            color: var(--ink);
+            border: var(--border-ink);
+            padding: 5px 10px;
+            font-family: 'Archivo Black', sans-serif;
+            transform: rotate(-5deg);
+            z-index: 2;
+        }
+        .chip-purple { background: var(--pop-purple); color: var(--white); }
+        .chip-ink { background: var(--ink); color: var(--white); }
+
+        /* Checkbox list */
+        .pop-check {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background: var(--pop-green);
+            border: 2px solid var(--ink);
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        /* Floating Buttons Stacked on Right */
+        .floating-top {
+            position: fixed;
+            bottom: 95px;
+            right: 25px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--white);
+            border: var(--border-ink);
+            border-radius: 12px;
+            box-shadow: var(--shadow-hard);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9998;
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 20px;
+            color: var(--ink);
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s, color 0.2s, opacity 0.3s;
+            animation: bounce 2s infinite;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .floating-top.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .floating-top:hover {
+            animation-play-state: paused;
+            transform: translate(2px, 2px);
+            box-shadow: var(--shadow-hover);
+            background-color: var(--pop-purple);
+            color: var(--white);
+        }
+
+        .floating-wa {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--pop-green);
+            border: var(--border-ink);
+            border-radius: 50%;
+            box-shadow: var(--shadow-hard);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .floating-wa:hover {
+            transform: translate(2px, 2px);
+            box-shadow: var(--shadow-hover);
+        }
+        .floating-wa svg {
+            width: 32px;
+            height: 32px;
+            fill: var(--ink);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+    
+    </style>
+
+    <meta name="description" content="Solusi lemari besi dan perlengkapan arsip kantor terpercaya. Dapatkan produk berkualitas tinggi hanya di Lemari Kantor.">
+    <meta name="keywords" content="lemari arsip, lemari besi, brankas dokumen, laci susun, kantor, lemari kantor">
+    <link rel="canonical" href="https://lemariarsipkantor.web.id/peralatan-kantor-lainnya">
+    <link rel="icon" href="https://lemariarsipkantor.web.id/assets/img/lemari_besi_2_pintu.webp" type="image/webp">
+    <link rel="apple-touch-icon" href="https://lemariarsipkantor.web.id/assets/img/lemari_besi_2_pintu.webp">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
+    <!-- Preconnect for Pagespeed -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+    <!-- OpenGraph / Facebook / X -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lemariarsipkantor.web.id/peralatan-kantor-lainnya">
+    <meta property="og:title" content="Peralatan Kantor Lainnya - Lemari Kantor">
+    <meta property="og:description" content="Solusi lemari besi dan perlengkapan arsip kantor terpercaya. Dapatkan produk berkualitas tinggi hanya di Lemari Kantor.">
+    <meta property="og:image" content="https://lemariarsipkantor.web.id/assets/img/lemari_besi_2_pintu.webp">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Peralatan Kantor Lainnya - Lemari Kantor">
+    <meta name="twitter:description" content="Solusi lemari besi dan perlengkapan arsip kantor terpercaya. Dapatkan produk berkualitas tinggi hanya di Lemari Kantor.">
+    <meta name="twitter:image" content="https://lemariarsipkantor.web.id/assets/img/lemari_besi_2_pintu.webp">
+
+    <!-- AEO & GEO Schema -->
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"LocalBusiness","name":"Peralatan Kantor Lainnya - Lemari Kantor","url":"https://lemariarsipkantor.web.id/peralatan-kantor-lainnya","description":"Solusi lemari besi dan perlengkapan arsip kantor terpercaya. Dapatkan produk berkualitas tinggi hanya di Lemari Kantor.","image":"https://lemariarsipkantor.web.id/assets/img/lemari_besi_2_pintu.webp","telephone":"+6288989643555","address":{"@type":"PostalAddress","addressLocality":"Jakarta","addressCountry":"ID"}}
+    </script>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light navbar-pop fixed-top py-3">
+        <div class="container">
+            <a class="navbar-brand display-font fs-5 position-relative text-ink d-flex align-items-center gap-2" href="index.html" style="text-shadow: 2px 2px 0 var(--pop-green);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15h9.286zM5.5 7h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1zM.8 1a.8.8 0 0 0-.8.8V3a.8.8 0 0 0 .8.8h14.4A.8.8 0 0 0 16 3V1.8a.8.8 0 0 0-.8-.8H.8z"/>
+                </svg>
+                LEMARI KANTOR
+                
+            </a>
+            <button class="navbar-toggler border-2 border-dark bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">Tentang Kami</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Produk</a>
+                        <ul class="dropdown-menu pop-dropdown">
+                            <li><a class="dropdown-item" href="lemari-besi-2-pintu.html">Lemari Besi 2 Pintu</a></li>
+                            <li><a class="dropdown-item" href="laci-susun-eksekutif.html">Laci Susun Eksekutif</a></li>
+                            <li><a class="dropdown-item" href="brankas-dokumen.html">Brankas Dokumen</a></li>
+                            <li><a class="dropdown-item" href="peralatan-kantor-lainnya.html">Peralatan Kantor Lainnya</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="packages.html">Paket</a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+                </ul>
+                <div class="d-flex mt-3 mt-lg-0">
+                    <a href="https://wa.me/6288989643555" target="_blank" class="pop-btn pop-btn-primary">Kontak</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+        <!-- HERO SECTION PRODUK -->
+    <section class="position-relative py-5 overflow-hidden bg-ink text-white text-center section-border-bottom" style="background-image: url('assets/img/hero_packages.webp'); background-size: cover; background-position: center;">
+        <div class="position-absolute top-0 start-0 w-100 h-100 bg-ink" style="opacity: 0.85;"></div>
+        <div class="container py-4 position-relative z-2">
+            <h1 class="display-font text-white mb-3" style="font-size: clamp(36px, 5vw, 56px); text-shadow: 3px 3px 0 var(--pop-purple);">PERALATAN KANTOR LAINNYA</h1>
+            <p class="lead fw-semibold mb-4 mx-auto" style="max-width: 600px; text-shadow: 1px 1px 0 var(--ink);">
+                Lengkapi ruang kerja Anda dengan perlengkapan berkualitas tinggi bergaya Pop-Art.
+            </p>
+            <div class="fw-bold small text-uppercase" style="letter-spacing: 1px;">
+                <a href="index.html" class="text-white text-decoration-none opacity-75">Beranda</a> 
+                <span class="mx-2 text-pop-green">/</span> 
+                <span class="text-pop-green">PERALATAN KANTOR LAINNYA</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUK SECTION -->
+    <section class="bg-paper py-5">
+        <div class="container py-4 text-center">
+            <div class="row g-4 justify-content-center">
+                
+                <!-- Product 1 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="pop-card border-3 border-dark p-2 h-100 d-flex flex-column" style="border-radius: 16px; background-color: var(--white);">
+                        <div class="position-relative overflow-hidden w-100 mb-3" style="border-radius: 12px; ">
+                            <img loading="lazy" src="assets/img/kursi_kantor.webp" class="w-100 h-auto" alt="Kursi Kantor">
+                        </div>
+                        <h4 class="display-font text-ink mt-2">KURSI KANTOR</h4>
+                        <div class="mt-auto d-flex flex-column gap-2">
+                            <button type="button" class="pop-btn w-100 text-center" style="background-color: var(--white); border-radius: 8px; font-size: 0.9rem;" data-bs-toggle="modal" data-bs-target="#modalKursi">Detail Produk</button>
+                            <a target="_blank" href="https://wa.me/6288989643555?text=Halo%20saya%20tertarik%20untuk%20memesan%20Kursi%20Kantor" class="pop-btn pop-btn-primary w-100 text-center" style="border-radius: 8px; font-size: 0.9rem;">Pesan Sekarang</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="pop-card border-3 border-dark p-2 h-100 d-flex flex-column" style="border-radius: 16px; background-color: var(--white);">
+                        <div class="position-relative overflow-hidden w-100 mb-3" style="border-radius: 12px; ">
+                            <img loading="lazy" src="assets/img/meja_kerja.webp" class="w-100 h-auto" alt="Meja Kerja">
+                        </div>
+                        <h4 class="display-font text-ink mt-2">MEJA KERJA</h4>
+                        <div class="mt-auto d-flex flex-column gap-2">
+                            <button type="button" class="pop-btn w-100 text-center" style="background-color: var(--white); border-radius: 8px; font-size: 0.9rem;" data-bs-toggle="modal" data-bs-target="#modalMeja">Detail Produk</button>
+                            <a target="_blank" href="https://wa.me/6288989643555?text=Halo%20saya%20tertarik%20untuk%20memesan%20Meja%20Kerja" class="pop-btn pop-btn-primary w-100 text-center" style="border-radius: 8px; font-size: 0.9rem;">Pesan Sekarang</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="pop-card border-3 border-dark p-2 h-100 d-flex flex-column" style="border-radius: 16px; background-color: var(--white);">
+                        <div class="position-relative overflow-hidden w-100 mb-3" style="border-radius: 12px; ">
+                            <img loading="lazy" src="assets/img/mesin_penghancur_kertas.webp" class="w-100 h-auto" alt="Mesin Penghancur Kertas">
+                        </div>
+                        <h4 class="display-font text-ink mt-2">PAPER SHREDDER</h4>
+                        <div class="mt-auto d-flex flex-column gap-2">
+                            <button type="button" class="pop-btn w-100 text-center" style="background-color: var(--white); border-radius: 8px; font-size: 0.9rem;" data-bs-toggle="modal" data-bs-target="#modalShredder">Detail Produk</button>
+                            <a target="_blank" href="https://wa.me/6288989643555?text=Halo%20saya%20tertarik%20untuk%20memesan%20Mesin%20Penghancur%20Kertas" class="pop-btn pop-btn-primary w-100 text-center" style="border-radius: 8px; font-size: 0.9rem;">Pesan Sekarang</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="pop-card border-3 border-dark p-2 h-100 d-flex flex-column" style="border-radius: 16px; background-color: var(--white);">
+                        <div class="position-relative overflow-hidden w-100 mb-3" style="border-radius: 12px; ">
+                            <img loading="lazy" src="assets/img/papan_tulis.webp" class="w-100 h-auto" alt="Papan Tulis">
+                        </div>
+                        <h4 class="display-font text-ink mt-2">PAPAN TULIS</h4>
+                        <div class="mt-auto d-flex flex-column gap-2">
+                            <button type="button" class="pop-btn w-100 text-center" style="background-color: var(--white); border-radius: 8px; font-size: 0.9rem;" data-bs-toggle="modal" data-bs-target="#modalPapan">Detail Produk</button>
+                            <a target="_blank" href="https://wa.me/6288989643555?text=Halo%20saya%20tertarik%20untuk%20memesan%20Papan%20Tulis" class="pop-btn pop-btn-primary w-100 text-center" style="border-radius: 8px; font-size: 0.9rem;">Pesan Sekarang</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- MODALS -->
+    <!-- Modal Kursi -->
+    <div class="modal fade" id="modalKursi" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-3 border-dark" style="border-radius: 16px; box-shadow: var(--shadow-hard);">
+                <div class="modal-header border-bottom border-3 border-dark bg-pop-green text-ink">
+                    <h5 class="modal-title display-font">Kursi Kantor Ergonomis</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 bg-paper">
+                    <img src="assets/img/kursi_kantor.webp" class="w-100 rounded border border-2 border-dark mb-3" alt="Kursi">
+                    <p class="fw-bold">Kursi kantor ergonomis dengan fitur penyangga tulang belakang dan bantalan busa tebal yang nyaman untuk produktivitas tinggi.</p>
+                </div>
+                <div class="modal-footer border-top border-3 border-dark bg-white">
+                    <button type="button" class="pop-btn pop-btn-ink" style="border-radius:8px;" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Meja -->
+    <div class="modal fade" id="modalMeja" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-3 border-dark" style="border-radius: 16px; box-shadow: var(--shadow-hard);">
+                <div class="modal-header border-bottom border-3 border-dark bg-pop-purple text-white">
+                    <h5 class="modal-title display-font" style="text-shadow: 2px 2px 0 var(--ink);">Meja Kerja Minimalis</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 bg-paper text-ink">
+                    <img src="assets/img/meja_kerja.webp" class="w-100 rounded border border-2 border-dark mb-3" alt="Meja">
+                    <p class="fw-bold">Meja kerja bergaya minimalis namun modern dengan balutan material solid yang cocok untuk suasana kantor profesional ala Pop-Art.</p>
+                </div>
+                <div class="modal-footer border-top border-3 border-dark bg-white">
+                    <button type="button" class="pop-btn pop-btn-ink" style="border-radius:8px;" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Shredder -->
+    <div class="modal fade" id="modalShredder" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-3 border-dark" style="border-radius: 16px; box-shadow: var(--shadow-hard);">
+                <div class="modal-header border-bottom border-3 border-dark bg-pop-green text-ink">
+                    <h5 class="modal-title display-font">Mesin Penghancur Kertas</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 bg-paper text-ink">
+                    <img src="assets/img/mesin_penghancur_kertas.webp" class="w-100 rounded border border-2 border-dark mb-3" alt="Shredder">
+                    <p class="fw-bold">Mesin penghancur kertas berkapasitas besar. Sangat efektif dan aman untuk menghancurkan dokumen konfidensial perusahaan.</p>
+                </div>
+                <div class="modal-footer border-top border-3 border-dark bg-white">
+                    <button type="button" class="pop-btn pop-btn-ink" style="border-radius:8px;" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Papan Tulis -->
+    <div class="modal fade" id="modalPapan" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-3 border-dark" style="border-radius: 16px; box-shadow: var(--shadow-hard);">
+                <div class="modal-header border-bottom border-3 border-dark bg-pop-purple text-white">
+                    <h5 class="modal-title display-font" style="text-shadow: 2px 2px 0 var(--ink);">Papan Tulis Kolaborasi</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 bg-paper text-ink">
+                    <img src="assets/img/papan_tulis.webp" class="w-100 rounded border border-2 border-dark mb-3" alt="Papan Tulis">
+                    <p class="fw-bold">Papan tulis (whiteboard) berukuran ekstra lebar, anti-noda, dan mudah dibersihkan. Sempurna untuk rapat strategis di ruang meeting.</p>
+                </div>
+                <div class="modal-footer border-top border-3 border-dark bg-white">
+                    <button type="button" class="pop-btn pop-btn-ink" style="border-radius:8px;" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="bg-ink py-5 text-white">
+        <div class="container">
+            <div class="row g-4">
+                <!-- Kolom 1 -->
+                <div class="col-lg-3 col-md-6">
+                    <h3 class="display-font fs-5 mb-3 text-white">LEMARI KANTOR</h3>
+                    <p class="small text-white opacity-75">Pusat lemari arsip besi dan brankas premium yang mengutamakan kualitas, ketahanan, dan desain modern.</p>
+                    <div class="d-flex gap-3 mt-4">
+                        <a href="#" class="text-white fs-5 text-decoration-none"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.036 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/></svg></a>
+                        <a href="#" class="text-white fs-5 text-decoration-none"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/></svg></a>
+                        <a href="#" class="text-white fs-5 text-decoration-none"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16"><path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.05-.074 1.957l-.008.104-.022.26-.01.104c-.048.519-.119 1.023-.22 1.402a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c1.16-.312 5.569-.334 6.18-.335h.142c.309 0 1.587.006 2.927.052l.17.006.087.004.171.007.171.007c1.11.049 2.167.128 2.654.26a2.01 2.01 0 0 1 1.415 1.419c.111.417.185.986.235 1.558L15.91 9.82l.008.104A31.4 31.4 0 0 1 16 7.68v-.123c-.002-.215-.01-.958-.064-1.778l-.007-.103-.003-.052-.008-.104-.022-.26-.01-.104c-.048-.519-.119-1.023-.22-1.402a2.01 2.01 0 0 1-1.415-1.42c-1.16-.312-5.569-.334-6.18-.335h-.142zM6.5 5.5v5l4.5-2.5-4.5-2.5z"/></svg></a>
+                    </div>
+                </div>
+                <!-- Kolom 2: Menu -->
+                <div class="col-lg-3 col-6 ps-lg-5">
+                    <h6 class="display-font text-white mb-3">MENU</h6>
+                    <ul class="list-unstyled fw-semibold small">
+                        <li class="mb-2"><a href="index.html" class="text-white text-decoration-none opacity-75">Beranda</a></li>
+                        <li class="mb-2"><a href="about.html" class="text-white text-decoration-none opacity-75">Tentang</a></li>
+                        <li class="mb-2"><a href="/#produk" class="text-white text-decoration-none opacity-75">Produk</a></li>
+                        <li class="mb-2"><a href="packages.html" class="text-white text-decoration-none opacity-75">Paket</a></li>
+                        <li class="mb-2"><a href="blog.html" class="text-white text-decoration-none opacity-75">Blog</a></li>
+                    </ul>
+                </div>
+                <!-- Kolom 3: Produk Populer -->
+                <div class="col-lg-3 col-6">
+                    <h6 class="display-font text-white mb-3">PRODUK POPULER</h6>
+                    <ul class="list-unstyled fw-semibold small">
+                        <li class="mb-2"><a href="lemari-besi-2-pintu.html" class="text-white text-decoration-none opacity-75">Lemari Besi 2 Pintu</a></li>
+                        <li class="mb-2"><a href="laci-susun-eksekutif.html" class="text-white text-decoration-none opacity-75">Laci Susun Eksekutif</a></li>
+                        <li class="mb-2"><a href="brankas-dokumen.html" class="text-white text-decoration-none opacity-75">Brankas Tahan Api</a></li>
+                        <li class="mb-2"><a href="peralatan-kantor-lainnya.html" class="text-white text-decoration-none opacity-75">Laci Mobile Roll</a></li>
+                    </ul>
+                </div>
+                <!-- Kolom 4: Kontak (tanpa QR Code) -->
+                <div class="col-lg-3 col-md-6">
+                    <h6 class="display-font text-white mb-3">KONTAK</h6>
+                    <ul class="list-unstyled fw-semibold small">
+                        <li class="mb-3 d-flex align-items-start">
+                            <span class="me-2">📍</span> <span class="opacity-75">Jakarta & Jabodetabek</span>
+                        </li>
+                        <li class="mb-3 d-flex align-items-start">
+                            <span class="me-2">💬</span> <span class="opacity-75">+62 889 8964 3555</span>
+                        </li>
+                        <li class="mb-3 d-flex align-items-start">
+                            <span class="me-2">✉️</span> <span class="opacity-75">sales@lemariarsipkantor.web.id</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="border-2 border-white opacity-25 my-4">
+            <div class="text-center fw-semibold small text-white opacity-75">
+                &copy; 2026 Lemari Kantor. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- FITUR MENGAPUNG -->
+
+    <!-- Tombol Scroll to Top (Posisi di atas WA) -->
+    <button class="floating-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });" title="Kembali ke atas">
+        &uarr;
+    </button>
+
+    <!-- Tombol WhatsApp Kanan Bawah (Posisi di bawah Top) dengan Icon SVG Bootstrap Asli -->
+    <a href="https://wa.me/6288989643555" target="_blank" class="floating-wa" title="Hubungi Kami via WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="var(--ink)" class="bi bi-whatsapp" viewBox="0 0 16 16">
+            <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.05-.084-.182-.133-.38-.232"/>
+        </svg>
+    </a>
+
+    <!-- Bootstrap 5 JS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Menyembunyikan dan Menampilkan tombol Floating Top saat di-scroll
+        const floatingTopBtn = document.querySelector('.floating-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                floatingTopBtn.classList.add('show');
+            } else {
+                floatingTopBtn.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
